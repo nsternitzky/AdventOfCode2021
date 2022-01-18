@@ -52,6 +52,20 @@
         let answer2StartTime = performance.now();
 
         // ANSWER 2 CODE GOES HERE
+        let sums = [];
+        let numSumIncreases = 0;
+
+        for (let i = 2; i < input.length; i++) {
+            sums.push(input[i-2] + input[i-1] + input[i]);
+        }
+
+        for (let i = 1; i < sums.length; i++) {
+            if (sums[i] > sums[i-1]) {
+                numSumIncreases++;
+            }
+        }
+
+        answer2display.innerHTML = `There are ${numSumIncreases} sums that are larger than the previous sum.`
 
         // End timer answer 2, display
         let answer2EndTime = performance.now();
