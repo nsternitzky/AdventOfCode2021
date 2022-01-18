@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 1</title>
+</head>
+
+<body>
+
+    <div class="display">
+        <h2>Answer 1</h2>
+        <div class="answer1"></div>
+        <div class="answer1TimeDisplay"></div>
+
+        <h2>Answer 2</h2>
+        <div class="answer2"></div>
+        <div class="answer2TimeDisplay"></div>
+
+    </div>
+
+    <script>
+        // Setup
+        let answer1display = document.getElementsByClassName('answer1')[0];
+        let answer2display = document.getElementsByClassName('answer2')[0];
+        let answer1TimeDisplay = document.getElementsByClassName('answer1TimeDisplay')[0];
+        let answer2TimeDisplay = document.getElementsByClassName('answer2TimeDisplay')[0];
+
+        // Start timer answer 1
+        let answer1StartTime = performance.now();
+
+        // ANSWER 1 CODE GOES HERE
+
+        // End timer answer 1, display
+        let answer1EndTime = performance.now();
+        answer1TimeDisplay.innerHTML = `Answer 1 took ${answer1EndTime - answer1StartTime}ms.`
+
+
+        // Start timer answer 2
+        let answer2StartTime = performance.now();
+
+        // ANSWER 2 CODE GOES HERE
+
+        // End timer answer 2, display
+        let answer2EndTime = performance.now();
+        answer2TimeDisplay.innerHTML = `Answer 2 took ${answer2EndTime - answer2StartTime}ms.`
+
+
+
+    </script>
+</body>
+
+</html>
