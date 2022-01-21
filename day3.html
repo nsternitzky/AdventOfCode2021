@@ -73,19 +73,25 @@
         let answer2StartTime = performance.now();
 
         // ANSWER 2 CODE GOES HERE
+        let findPositionCount = (arr, position) => {
+            let count = 0;
+
+            for (let i = 0; i < arr.length; i++) {
+                    if (arr[i][position] == 0) {
+                        count -= 1;
+                    } else { // arr[i][position] == 1
+                        count += 1;
+                    }
+                }
+
+            return count;
+        }
+
         let findOxygenGeneratorRating = (arr, position) => {
             if (arr.length == 1) {
                 return arr[0];
             } else {
-                let positionCount = 0;
-
-                for (let i = 0; i < arr.length; i++) {
-                    if (arr[i][position] == 0) {
-                        positionCount -= 1;
-                    } else { // arr[i][position] == 1
-                        positionCount += 1;
-                    }
-                }
+                let positionCount = findPositionCount(arr, position);
 
                 let newArr = [];
 
@@ -104,15 +110,7 @@
             if (arr.length == 1) {
                 return arr[0];
             } else {
-                let positionCount = 0;
-
-                for (let i = 0; i < arr.length; i++) {
-                    if (arr[i][position] == 0) {
-                        positionCount -= 1;
-                    } else { // arr[i][position] == 1
-                        positionCount += 1;
-                    }
-                }
+                let positionCount = findPositionCount(arr, position);
 
                 let newArr = [];
 
