@@ -120,6 +120,29 @@
         let answer2StartTime = performance.now();
 
         // ANSWER 2 CODE GOES HERE
+        let findLastBoard = (boards, numberList) => {
+            let drawnNumber;
+            while (boards.length > 1) {
+                drawnNumber = drawNumber(numberList);
+                markBoards(drawnNumber, boards);
+                while (checkForWin(boards) != null) {
+                    boards.splice(boards.indexOf(checkForWin(boards)), 1);
+                }
+            }
+            while (checkForWin(boards) == null) {
+                drawnNumber = drawNumber(numberList);
+                markBoards(drawnNumber, boards);
+            }
+            console.log(boards[0]);
+            return calculateScore(boards[0], drawnNumber);
+        }
+
+        boards = [];
+        buildBoards(boardsInput);
+        lastNumberDrawnIndex = -1;
+        score = findLastBoard(boards, numbersToDraw);
+
+        answer2display.innerHTML = `The winning board has a score of ${score}.`;
 
         // End timer answer 2, display
         let answer2EndTime = performance.now();
