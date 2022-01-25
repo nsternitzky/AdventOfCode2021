@@ -103,7 +103,6 @@
         let lines = parseInput(input);
         let grid = buildInitialGrid(lines);
         addLines(lines,grid);
-        console.log(grid);
         answer1display.innerHTML = `There are ${countOverlaps(grid)} overlaps.`;
 
         // End timer answer 1, display
@@ -115,6 +114,30 @@
         let answer2StartTime = performance.now();
 
         // ANSWER 2 CODE GOES HERE
+        let addDiagonalLines = (lines, grid) => {
+            for (let line of lines) {
+                if (line.x1 > line.x2 && line.y1 > line.y2) {
+                    for (let i = 0; i <= (line.x1 - line.x2); i++) {
+                        grid[line.y1 - i][line.x1 - i]++;
+                    }
+                } else if (line.x1 > line.x2 && line.y1 < line.y2) {
+                    for (let i = 0; i <= (line.x1 - line.x2); i++) {
+                        grid[line.y1 + i][line.x1 - i]++;
+                    }
+                } else if (line.x1 < line.x2 && line.y1 > line.y2) {
+                    for (let i = 0; i <= (line.x2 - line.x1); i++) {
+                        grid[line.y1 - i][line.x1 + i]++;
+                    }
+                } else if (line.x1 < line.x2 && line.y1 < line.y2) {
+                    for (let i = 0; i <= (line.x2 - line.x1); i++) {
+                        grid[line.y1 + i][line.x1 + i]++;
+                    }
+                }
+            }
+        }
+
+        addDiagonalLines(lines,grid);
+        answer2display.innerHTML = `There are ${countOverlaps(grid)} overlaps.`;
 
         // End timer answer 2, display
         let answer2EndTime = performance.now();
