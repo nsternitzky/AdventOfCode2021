@@ -276,6 +276,76 @@
         let answer2StartTime = performance.now();
 
         // ANSWER 2 CODE GOES HERE
+        const getOutput = (segmentTemplates, outputSignals) => {
+            let output = "";
+            for (let outputSegments of outputSignals) {
+                for (let templateNumber in segmentTemplates) {
+                    const segmentTemplate = segmentTemplates[templateNumber];
+                    const outputLength = outputSegments.length;
+                    if (outputLength == segmentTemplate.length && getSegmentOverlaps(outputSegments, segmentTemplate) == outputLength) {
+                        output += templateNumber;
+                    }
+                }
+            }
+            return parseInt(output);
+        }
+
+        const getSegmentOverlaps = (signalPattern, segmentTemplate) => {
+            let overlapCount = 0;
+            for (let segment of segmentTemplate) {
+                if (signalPattern.includes(segment)) {
+                    overlapCount++;
+                }
+            }
+            return overlapCount;
+        }
+
+        const decodeSignalPatterns = signalPatterns => {
+            const sortedSignalPatterns = signalPatterns.sort((a,b) => a.length - b.length);
+            
+            let segmentTemplates = {};
+            segmentTemplates[1] = sortedSignalPatterns[0].split("");
+            segmentTemplates[7] = sortedSignalPatterns[1].split("");
+            segmentTemplates[4] = sortedSignalPatterns[2].split("");
+            
+            for (let i = 3; i <= 5; i++) { // checking signal patterns of length 5
+                const signalPattern = sortedSignalPatterns[i];
+                if (getSegmentOverlaps(signalPattern, segmentTemplates[1]) == 2) {
+                    segmentTemplates[3] = signalPattern.split("");
+                } else if (getSegmentOverlaps(signalPattern, segmentTemplates[4]) == 2) {
+                    segmentTemplates[2] = signalPattern.split("");
+                } else {
+                    segmentTemplates[5] = signalPattern.split("");
+                }
+            }
+
+            for (let i = 6; i <= 8; i++) { // checking signal patterns of length 6
+                const signalPattern = sortedSignalPatterns[i];
+                if (getSegmentOverlaps(signalPattern, segmentTemplates[1]) == 1) {
+                    segmentTemplates[6] = signalPattern.split("");
+                } else if (getSegmentOverlaps(signalPattern, segmentTemplates[4]) == 4) {
+                    segmentTemplates[9] = signalPattern.split("");
+                } else {
+                    segmentTemplates[0] = signalPattern.split("");
+                }
+            }
+
+            segmentTemplates[8] = sortedSignalPatterns[9].split("");
+            return segmentTemplates;
+        }
+
+        const inputLines = input.split(/\s{2,}/);
+        let outputSum = 0;
+        for (line of inputLines) {
+            const dividedLine = line.split(" | ");
+            const signalPatterns = dividedLine[0].split(" ");
+            const outputSignals = dividedLine[1].split(" ");
+            const segmentTemplates = decodeSignalPatterns(signalPatterns);
+            const output = getOutput(segmentTemplates, outputSignals);
+            outputSum += output;
+        }
+
+        answer2display.innerHTML = `The sum of all output values is ${outputSum}.`;
 
         // End timer answer 2, display
         let answer2EndTime = performance.now();
